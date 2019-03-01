@@ -18,9 +18,12 @@ RUN apk add --no-cache \
     && echo '' | pecl install memcached \
     && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/20_memcached.ini
 
+RUN echo '' | pecl install redis
 RUN cd /usr/bin && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && mv /usr/bin/wp-cli.phar /usr/bin/wp && chmod +x /usr/bin/wp
 
 RUN docker-php-ext-install zip mysqli sockets soap calendar bcmath opcache
+RUN docker-php-ext-enable redis
+
 RUN deluser www-data && deluser xfs
 RUN echo "www-data:x:33:33:Apiki WP Host,,,:/var/www:/bin/false" >> /etc/passwd && echo "www-data:x:33:www-data" >> /etc/group
 WORKDIR /var/www
