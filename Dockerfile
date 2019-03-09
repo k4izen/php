@@ -30,6 +30,7 @@ RUN cd /root/ && php -r "copy('https://getcomposer.org/installer', 'composer-set
   mv /root/composer.phar /usr/bin/composer
 
 RUN deluser www-data && deluser xfs
-RUN echo "www-data:x:33:33:Apiki WP Host,,,:/var/www:/bin/false" >> /etc/passwd && echo "www-data:x:33:www-data" >> /etc/group
-WORKDIR /var/www
-USER www-data
+RUN echo "www-data:x:33:33:K4izen Cloud Service,,,:/var/www:/bin/false" >> /etc/passwd && echo "www-data:x:33:www-data" >> /etc/group
+
+RUN mkdir /PROJECT && chown www-data:www-data /PROJECT
+WORKDIR /PROJECT
