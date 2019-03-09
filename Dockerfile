@@ -24,6 +24,11 @@ RUN cd /usr/bin && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pa
 RUN docker-php-ext-install zip mysqli sockets soap calendar bcmath opcache
 RUN docker-php-ext-enable redis
 
+RUN cd /root/ && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+  php -r "if (hash_file('sha384', 'composer-setup.php') === '48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+  php composer-setup.php && \
+  mv /root/composer.phar /usr/bin/composer
+
 RUN deluser www-data && deluser xfs
 RUN echo "www-data:x:33:33:Apiki WP Host,,,:/var/www:/bin/false" >> /etc/passwd && echo "www-data:x:33:www-data" >> /etc/group
 WORKDIR /var/www
