@@ -34,3 +34,5 @@ RUN echo "www-data:x:33:33:K4izen Cloud Service,,,:/var/www:/bin/false" >> /etc/
 
 RUN mkdir /PROJECT && chown www-data:www-data /PROJECT
 WORKDIR /PROJECT
+
+USER www-data 
