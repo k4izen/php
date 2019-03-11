@@ -33,6 +33,8 @@ RUN deluser www-data && deluser xfs
 RUN echo "www-data:x:33:33:K4izen Cloud Service,,,:/var/www:/bin/false" >> /etc/passwd && echo "www-data:x:33:www-data" >> /etc/group
 
 RUN mkdir /PROJECT && chown www-data:www-data /PROJECT
+RUN mkdir -p /var/www && chown -R www-data:www-data /var/www
+
 WORKDIR /PROJECT
 
 USER www-data 
